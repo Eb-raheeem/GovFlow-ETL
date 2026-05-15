@@ -1,0 +1,10 @@
+[project]
+name = "govflow"
+version = "0.1.0"
+description = "Government payroll ETL pipeline showcasing COBOL, JCL, Linux scripting, AWS and SQL"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.43.8",
+    "pandas>=3.0.3",
+    "python-dotenv>=1.2.2",
+]
