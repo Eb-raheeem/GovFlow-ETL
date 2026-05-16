@@ -5,6 +5,7 @@ description = "Government payroll ETL pipeline showcasing COBOL, JCL, Linux scri
 requires-python = ">=3.12"
 dependencies = [
     "boto3>=1.43.8",
+    "dotenv>=0.9.9",
     "pandas>=3.0.3",
     "python-dotenv>=1.2.2",
 ]
