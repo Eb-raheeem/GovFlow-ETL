@@ -1,0 +1,6 @@
+[2026-05-15 22:41:55] Pipeline started
+[2026-05-15 22:41:55] Step 1: Running COBOL payroll generator
+[2026-05-15 22:41:55] Step 1: Complete
+[2026-05-15 22:41:55] Step 2: Validated -     2000 records generated
+[2026-05-15 22:41:55] Step 3: MD5 checksum - 14c9bbde18ef590fcc3cbc4151d0777f
+[2026-05-15 22:41:55] Pipeline completed successfully
