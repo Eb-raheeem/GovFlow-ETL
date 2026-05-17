@@ -12,6 +12,5 @@ wheels/
 data/
 cobol/generate_payroll
 logs/
-cobol/generate_payroll
 __pycache__/
 .vscode/
