@@ -1,0 +1,10 @@
+[2026-05-16 21:43:34] Pipeline started
+[2026-05-16 21:43:34] Step 1: Running COBOL payroll generator
+[2026-05-16 21:43:34] Step 1: Complete
+[2026-05-16 21:43:34] Step 2: Validated -   445000 bytes generated
+[2026-05-16 21:43:34] Step 3: MD5 checksum - 44597440855338a8843bd75f05808d7d
+[2026-05-16 21:43:34] Step 4: Uploading to S3 and transforming
+[2026-05-16 21:43:36] Step 4: Complete
+[2026-05-16 21:43:36] Step 5: Loading into Supabase
+[2026-05-16 21:43:55] Step 5: Complete
+[2026-05-16 21:43:55] Pipeline completed successfully
