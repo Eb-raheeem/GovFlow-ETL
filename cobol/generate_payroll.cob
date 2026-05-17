@@ -7,7 +7,7 @@ ENVIRONMENT DIVISION.
 INPUT-OUTPUT SECTION.
 FILE-CONTROL.
     SELECT PAYROLL-FILE ASSIGN TO "data/payroll.dat"
-    ORGANIZATION IS LINE SEQUENTIAL.
+        ORGANIZATION IS SEQUENTIAL.
 
 DATA DIVISION.
 FILE SECTION.
@@ -33,14 +33,14 @@ WORKING-STORAGE SECTION.
 01 WS-PENSION            PIC 9(7).
 01 WS-NET                PIC 9(8).
 01 WS-COUNTER            PIC 9(4) VALUE 0.
-01 WS-MOD                PIC 9(3).
+01 WS-MOD                PIC 9(1).
 01 WS-EMP-ID             PIC 9(6).
-01 WS-YEAR               PIC 9(4).
 
 PROCEDURE DIVISION.
 MAIN-PARA.
     OPEN OUTPUT PAYROLL-FILE
-    PERFORM VARYING WS-COUNTER FROM 1 BY 1 UNTIL WS-COUNTER > 5000
+    PERFORM VARYING WS-COUNTER FROM 1 BY 1
+        UNTIL WS-COUNTER > 5000
         PERFORM WRITE-EMPLOYEE
     END-PERFORM
     CLOSE PAYROLL-FILE
@@ -56,42 +56,45 @@ WRITE-EMPLOYEE.
         MOVE "GRD5"       TO GRADE
         MOVE "FINANCE   " TO DEPARTMENT
         MOVE "TX01"       TO TAX-CODE
-        MOVE 00045000     TO WS-GROSS
-    ELSE IF WS-MOD = 2
-        MOVE "MARY      " TO FIRST-NAME
-        MOVE "JONES     " TO LAST-NAME
-        MOVE "GRD3"       TO GRADE
-        MOVE "HR        " TO DEPARTMENT
-        MOVE "TX02"       TO TAX-CODE
-        MOVE 00062000     TO WS-GROSS
-    ELSE IF WS-MOD = 3
-        MOVE "JAMES     " TO FIRST-NAME
-        MOVE "BROWN     " TO LAST-NAME
-        MOVE "GRD7"       TO GRADE
-        MOVE "IT        " TO DEPARTMENT
-        MOVE "TX03"       TO TAX-CODE
-        MOVE 00078000     TO WS-GROSS
-    ELSE IF WS-MOD = 4
-        MOVE "SARAH     " TO FIRST-NAME
-        MOVE "DAVIS     " TO LAST-NAME
-        MOVE "GRD2"       TO GRADE
-        MOVE "LEGAL     " TO DEPARTMENT
-        MOVE "TX01"       TO TAX-CODE
-        MOVE 00038000     TO WS-GROSS
+        MOVE 45000        TO WS-GROSS
     ELSE
-        MOVE "PETER     " TO FIRST-NAME
-        MOVE "WILSON    " TO LAST-NAME
-        MOVE "GRD6"       TO GRADE
-        MOVE "FINANCE   " TO DEPARTMENT
-        MOVE "TX02"       TO TAX-CODE
-        MOVE 00055000     TO WS-GROSS
+        IF WS-MOD = 2
+            MOVE "MARY      " TO FIRST-NAME
+            MOVE "JONES     " TO LAST-NAME
+            MOVE "GRD3"       TO GRADE
+            MOVE "HR        " TO DEPARTMENT
+            MOVE "TX02"       TO TAX-CODE
+            MOVE 62000        TO WS-GROSS
+        ELSE
+            IF WS-MOD = 3
+                MOVE "JAMES     " TO FIRST-NAME
+                MOVE "BROWN     " TO LAST-NAME
+                MOVE "GRD7"       TO GRADE
+                MOVE "IT        " TO DEPARTMENT
+                MOVE "TX03"       TO TAX-CODE
+                MOVE 78000        TO WS-GROSS
+            ELSE
+                IF WS-MOD = 4
+                    MOVE "SARAH     " TO FIRST-NAME
+                    MOVE "DAVIS     " TO LAST-NAME
+                    MOVE "GRD2"       TO GRADE
+                    MOVE "LEGAL     " TO DEPARTMENT
+                    MOVE "TX01"       TO TAX-CODE
+                    MOVE 38000        TO WS-GROSS
+                ELSE
+                    MOVE "PETER     " TO FIRST-NAME
+                    MOVE "WILSON    " TO LAST-NAME
+                    MOVE "GRD6"       TO GRADE
+                    MOVE "FINANCE   " TO DEPARTMENT
+                    MOVE "TX02"       TO TAX-CODE
+                    MOVE 55000        TO WS-GROSS
+                END-IF
+            END-IF
+        END-IF
     END-IF
-    COMPUTE WS-YEAR = 2015 + FUNCTION MOD(WS-COUNTER, 8)
-    STRING WS-YEAR DELIMITED SIZE
-           "0101"  DELIMITED SIZE
-           INTO START-DATE
-    COMPUTE WS-TAX     = WS-GROSS * 0.15
-    COMPUTE WS-PENSION = WS-GROSS * 0.05
+    MOVE "20150101"   TO START-DATE
+    COMPUTE WS-TAX     = WS-GROSS * 15 / 100
+    COMPUTE WS-PENSION = WS-GROSS * 5 / 100
     COMPUTE WS-NET     = WS-GROSS - WS-TAX - WS-PENSION
     MOVE WS-GROSS     TO GROSS-SALARY
     MOVE WS-TAX       TO TAX-DEDUCTION

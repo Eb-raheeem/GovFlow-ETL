@@ -22,8 +22,12 @@ def parse_record(line: str) -> dict:
 
 
 def run_etl(filepath: str) -> list[dict]:
-    lines = Path(filepath).read_text().splitlines()
-    records = [parse_record(line) for line in lines if line.strip()]
+    records = []
+    with open(filepath, "rb") as f:
+        while chunk := f.read(89):
+            line = chunk.decode("utf-8")
+            if line.strip():
+                records.append(parse_record(line))
     print(f"Transformed {len(records)} records")
     return records
 
